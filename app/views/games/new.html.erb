@@ -1,0 +1,22 @@
+<div class="container w-50">
+  <h2>Nouveau jeu</h2>
+  <div class="d-flex align-items-center">
+    <ul class="list-group list-group-horizontal gap-2 list-unstyled me-3">
+      <% @letters.each do |letter| %>
+        <li class="bg-primary text-white rounded fw-bold fs-4 d-flex align-items-center justify-content-center shadow-sm" style="width: 50px; height: 50px;">
+          <%= letter %>
+        </li>
+      <% end %>
+    </ul>
+    <%= link_to "Autre grille", new_path, class: "btn btn-outline-secondary" %>
+  </div>
+  <hr>
+  <p>Quel est le mot le plus long que vous pouvez trouver ?</p>
+  <form class="input-group shadow-sm rounded-3 overflow-hidden mb-3" action="/score" method="post" data-turbo="false">
+    <input class="form-control form-control-lg border-0 bg-body-tertiary" type="text" id="word" name="word">
+    <button class="btn btn-primary px-4" type="submit">Jouer</button>
+    <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+    <%= hidden_field_tag :grid, @letters.join(" ") %>
+    <%= hidden_field_tag :start_time, Time.now %>
+  </form>
+</div>
